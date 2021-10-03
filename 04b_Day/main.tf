@@ -21,6 +21,7 @@ data "aws_ami" "latestubuntu" {
 resource "aws_instance" "hello4b" {
   ami = data.aws_ami.latestubuntu.id
   instance_type = "t2.micro"
+  key_name = "devops"
   user_data = <<-EOF
             #!/bin/bash
             echo "Sri Swami Samarth" >index.html
@@ -37,6 +38,12 @@ resource "aws_security_group" "sghello4b" {
     ingress {
         to_port = var.tcp8080
         from_port = var.tcp8080
+        protocol = "tcp"
+        cidr_blocks = [ "0.0.0.0/0" ]
+    }
+        ingress {
+        to_port = 22
+        from_port = 22
         protocol = "tcp"
         cidr_blocks = [ "0.0.0.0/0" ]
     }
