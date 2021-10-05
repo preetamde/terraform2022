@@ -53,3 +53,5 @@
 2. target type (instance, IP or Lambda function)
 3. Port and Protocol (this is same as listener but ports can be different)
 4. health check
+
+On Monday nothing was done.
