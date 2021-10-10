@@ -4,9 +4,13 @@
     resource: https://letslearndevops.com/2018/08/23/terraform-get-latest-centos-ami/
 
 ## Date: 03.10.2021
-* Launch configuration uses same parameters as EC2 Instance
-    - ami is here image_id
-    - security_groups_id is here security_groups
+
+1. **Launch configuration** uses same parameters as EC2 Instance
+   1. name
+   2. image_id = referred here as ami
+   3. instance_type
+   4. 
+   5. security_groups_id is here security_groups
 
 ## Build blocks to build load balancer
 
