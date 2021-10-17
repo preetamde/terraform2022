@@ -21,6 +21,8 @@ resource "aws_security_group" "derestricted" {
 }
 
 /*
+This resource is needed if you wish to test local-exec without
+launching instance
 resource "null_resource" "noresource" {
         provisioner "local-exec" {
     command = "echo `date` > text.log"
