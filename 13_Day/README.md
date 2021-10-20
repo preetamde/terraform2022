@@ -8,3 +8,6 @@
 2. creating NAT GW
    1. creating routing tables
    2. associating with private subnets
+   3. need a static EIP
+3. creating Instance
+   1. create a web server instance and add it to Public zone.
