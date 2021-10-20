@@ -27,16 +27,17 @@
   * Networking and security groups
   * user data and IAM Role
   * Lifecycle ist **must** and I should remember the purpose and need of it.
-  * Storage and Key Pair
+  - Storage and Key Pair
+
 > Most important, LC is non-editable and old. LC has future and has versions
 
 ### Auto Scaling Groups
 
-* They need Input from Launch configuration. Remember launch configuration defines what to provision and where and when to provisioned is defined in ASG
-  * name
-  * launch configuration
-  * vpc
-  * health check type
+- They need Input from Launch configuration. Remember launch configuration defines what to provision and where and when to provisioned is defined in ASG
+  - name
+  - launch configuration
+  - vpc
+  - health check type
 
 ### Load Balancer creation
 
@@ -44,7 +45,6 @@
 2. name of the load balancer
 3. subnets
 4. Security groups
-
 
 ### Listerners - is port and protocol LB is listening. But it is different resource
 
