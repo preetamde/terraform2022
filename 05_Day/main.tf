@@ -57,7 +57,7 @@ resource "aws_autoscaling_group" "asgwebservices" {
   name = "ASG-WebSVC"
   launch_configuration = aws_launch_configuration.webserverlc.name 
   vpc_zone_identifier = data.aws_subnet_ids.defaultvpcsb.ids #where
-  target_group_arns = [aws_lb_target_group.tglb-websvc.arn] # ^ adding target groups from LB here.
+  target_group_arns = [aws_lb_target_group.tglb-websvc.arn] # ? adding target groups from LB here.
   health_check_type = "ELB" # This is important and is offered as part of ASG
   min_size = 2
   health_check_grace_period = 300 # 5 minutes before it starts
@@ -70,7 +70,6 @@ resource "aws_autoscaling_group" "asgwebservices" {
 }
 
 # 3. create load balancer
-
 resource "aws_lb" "lb4webservices" {
   name = "LB-Webservices"
   load_balancer_type = "application"
@@ -95,14 +94,14 @@ resource "aws_security_group" "sglb" {
       cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
-
 # 5. load balancer lister
-
-resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.lb4webservices.arn
+/*
+every listener is configured with Port and Protocol for front end connection (client to loadbalancer)
+*/
+resource "aws_lb_listener" "listener" {
+  load_balancer_arn = aws_lb.lb4webservices.arn # required
   port = 80
-  protocol = "HTTP"
+  protocol = "HTTP" #default value
   default_action {
       type = "fixed-response" 
           fixed_response {
@@ -112,7 +111,31 @@ resource "aws_lb_listener" "http" {
       } 
   }
 }
+  #  Listener rules
+  resource "aws_lb_listener_rule" "lblisterrules" {
+    listener_arn = aws_lb_listener.listener.arn # *required
+    priority = 100
+    condition {
 
+    }
+    # rule action has type and target. Both are required
+    action {
+      type = "forward"
+      target_group_arn = aws_lb_target_group.tglb-websvc.arn
+    }
+
+  /* 
+  * here you define URL filtering
+    1. Host-based routing -host header
+    2. path-based condition - URL filtering
+  */
+
+    condition {
+      path_pattern { 
+        values = ["*"]
+      }
+    }
+  }
 # 6. create target group for load balancer
 resource "aws_lb_target_group" "tglb-websvc" {
     name = "TGS-Webservices"
@@ -122,7 +145,7 @@ resource "aws_lb_target_group" "tglb-websvc" {
 
   # you need a health check for target group
   health_check {
-    enabled = true
+    enabled = true #default
     healthy_threshold = 5
     unhealthy_threshold = 2
     interval = 30 # in seconds
@@ -130,25 +153,6 @@ resource "aws_lb_target_group" "tglb-websvc" {
     protocol = "HTTP"
     timeout = 5 # in seconds
     matcher = "200" # success code
-  }
-}
-
-#  Listener rules
-resource "aws_lb_listener_rule" "lblisterrules" {
-  listener_arn = aws_lb_listener.http.arn
-  priority = 100
-  condition {
-
-  }
-  action {
-    type = "forward"
-    target_group_arn = aws_lb_target_group.tglb-websvc.arn
-  }
-
-  condition {
-    path_pattern { 
-      values = ["*"]
-    }
   }
 }
 # OUTPUT Section
