@@ -2,7 +2,7 @@
 
 1. set the global config
 2. how do you do this?
-   
+
    > git config --global user.name
 
    > git config --global user.email
@@ -25,10 +25,10 @@
    git config --global core.editor "code --wait"
 
    ```
+
 ## Useful Git log commands
 
-```
-Option 	Description
+   Option   Description
 
 -p             Show the patch introduced with each commit. !! Important
 
@@ -49,5 +49,3 @@ Option 	Description
 --graph           Display an ASCII graph of the branch and merge history beside the log output.
 
 --pretty          Show commits in an alternate format. Option values include oneline, short, full, fuller, and format (where you specify your own format).
-
-```
