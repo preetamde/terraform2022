@@ -15,7 +15,6 @@ resource "aws_instance" "lt123" {
     "Name" = "pmz-useast02"
   }
 }
-
 resource "aws_security_group" "lt123secgroup" {
   name = "8080_Allow"
   ingress {
@@ -24,5 +23,4 @@ resource "aws_security_group" "lt123secgroup" {
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  
 }
