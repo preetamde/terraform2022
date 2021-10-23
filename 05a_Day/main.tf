@@ -1,5 +1,4 @@
 # create a EC2 instance with ssh keys
-
 provider "aws" {
   region = "us-east-2"
 }
@@ -15,7 +14,6 @@ variable "http8080" {
   default     = 8080
   type        = number
 }
-
 data "aws_ami" "ubuntu" {
   most_recent = true
   owners      = ["099720109477"]
@@ -24,7 +22,6 @@ data "aws_ami" "ubuntu" {
     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
   }
 }
-
 resource "aws_security_group" "access22" {
   name = "AllowAccess22"
   ingress {
@@ -42,7 +39,6 @@ resource "aws_security_group" "access22" {
     description = "allow http at 8080"
   }
 }
-
 resource "aws_instance" "firstinstance" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
